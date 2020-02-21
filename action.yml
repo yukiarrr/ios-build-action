@@ -1,0 +1,29 @@
+name: "iOS Build"
+description: "Export ipa"
+inputs:
+  project-path:
+    description: "Project path"
+    required: true
+  p12-base64:
+    description: "Base64 encoded p12 file"
+    required: true
+  mobileprovision-base64:
+    description: "Base64 encoded mobileprovision file"
+    required: true
+  code-signing-identity:
+    description: "For example, iOS Distribution"
+    required: true
+  team-id:
+    description: "Team id"
+    required: true
+  certificate-password:
+    description: "Certificate password"
+    required: false
+    default: ""
+  output-path:
+    description: "Output path of ipa"
+    required: false
+    default: "output.ipa"
+runs:
+  using: "node12"
+  main: "index.js"

@@ -1,0 +1,42 @@
+default_platform(:ios)
+
+platform :ios do
+  desc "Export ipa"
+  lane :export_ipa do
+    create_keychain(
+      name: "ios-build.keychain",
+      password: SecureRandom.uuid,
+      default_keychain: true,
+      unlock: true,
+      timeout: 3600
+    )
+    import_certificate(
+      certificate_path: "ios-build.p12",
+      certificate_password: ENV["CERTIFICATE_PASSWORD"],
+      keychain_name: "ios-build.keychain"
+    )
+    install_provisioning_profile(
+      path: "ios-build.mobileprovision"
+    )
+    disable_automatic_code_signing(
+      path: ENV["PROJECT_PATH"]
+    )
+    update_project_provisioning(
+      xcodeproj: ENV["PROJECT_PATH"],
+      profile: "ios-build.mobileprovision",
+      code_signing_identity: ENV["CODE_SIGNING_IDENTITY"]
+    )
+    update_project_team(
+      path: ENV["PROJECT_PATH"],
+      teamid: ENV["TEAM_ID"]
+    )
+    build_app(
+      project: ENV["PROJECT_PATH"],
+      output_name: ENV["OUTPUT_PATH"],
+      clean: true
+    )
+    delete_keychain(
+      name: "ios-build.keychain"
+    )
+  end
+end

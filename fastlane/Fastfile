@@ -32,6 +32,7 @@ platform :ios do
     )
     build_app(
       project: ENV["PROJECT_PATH"],
+      configuration: ENV["CONFIGURATION"],
       output_name: ENV["OUTPUT_PATH"],
       clean: true
     )

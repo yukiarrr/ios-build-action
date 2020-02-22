@@ -16,6 +16,10 @@ inputs:
   team-id:
     description: "Team id"
     required: true
+  configuration:
+    description: "For example, Debug, Release"
+    required: false
+    default: "Release"
   certificate-password:
     description: "Certificate password"
     required: false

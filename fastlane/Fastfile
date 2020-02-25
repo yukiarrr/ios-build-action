@@ -3,9 +3,10 @@ default_platform(:ios)
 platform :ios do
   desc "Export ipa"
   lane :export_ipa do
+    keychain_password = SecureRandom.uuid
     create_keychain(
       name: "ios-build.keychain",
-      password: SecureRandom.uuid,
+      password: keychain_password,
       default_keychain: true,
       unlock: true,
       timeout: 3600
@@ -13,7 +14,8 @@ platform :ios do
     import_certificate(
       certificate_path: "ios-build.p12",
       certificate_password: ENV["CERTIFICATE_PASSWORD"],
-      keychain_name: "ios-build.keychain"
+      keychain_name: "ios-build.keychain",
+      keychain_password: keychain_password
     )
     install_provisioning_profile(
       path: "ios-build.mobileprovision"

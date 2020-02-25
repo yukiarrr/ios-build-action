@@ -16,6 +16,10 @@ inputs:
   team-id:
     description: "Team id"
     required: true
+  export-method:
+    description: "Choose app-store, ad-hoc, package, enterprise, development, or developer-id"
+    required: false
+    default: "app-store"
   configuration:
     description: "For example, Debug, Release"
     required: false

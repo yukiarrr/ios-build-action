@@ -36,7 +36,8 @@ platform :ios do
       project: ENV["PROJECT_PATH"],
       configuration: ENV["CONFIGURATION"],
       output_name: ENV["OUTPUT_PATH"],
-      clean: true
+      clean: true,
+      export_method: ENV["EXPORT_METHOD"]
     )
     delete_keychain(
       name: "ios-build.keychain"

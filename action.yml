@@ -16,6 +16,10 @@ inputs:
   team-id:
     description: "Team id"
     required: true
+  workspace-path:
+    description: "Workspace path"
+    required: false
+    default: ""
   export-method:
     description: "Choose app-store, ad-hoc, package, enterprise, development, or developer-id"
     required: false

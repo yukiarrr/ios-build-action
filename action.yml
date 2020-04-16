@@ -1,4 +1,4 @@
-name: "iOS Build"
+name: "iOS Build Action"
 description: "Export ipa"
 inputs:
   project-path:

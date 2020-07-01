@@ -38,6 +38,10 @@ Choose app-store, `"ad-hoc"`, `"package"` `"enterprise"`, `"development"`, or `"
 
 For example, `"Debug"`, `"Release"`. Default `"Release"`.
 
+### `scheme`
+
+For example, `"myscheme"`.
+
 ### `certificate-password`
 
 Certificate password. Default `""`.

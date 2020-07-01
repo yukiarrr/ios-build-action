@@ -36,6 +36,9 @@ inputs:
     description: "Output path of ipa"
     required: false
     default: "output.ipa"
+  scheme:
+    description: "Scheme"
+    required: true
 runs:
   using: "node12"
   main: "index.js"

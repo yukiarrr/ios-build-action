@@ -38,7 +38,8 @@ inputs:
     default: "output.ipa"
   scheme:
     description: "Scheme"
-    required: true
+    required: false
+    default: ""
 runs:
   using: "node12"
   main: "index.js"

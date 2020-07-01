@@ -55,7 +55,7 @@ Output path of ipa. Default `"output.ipa"`.
 ### Unity
 
 ```yaml
-- uses: yukiarrr/ios-build-action@v0.5.0
+- uses: yukiarrr/ios-build-action@v0.5.1
   with:
     project-path: Unity-iPhone.xcodeproj
     p12-base64: ${{ secrets.P12_BASE64 }}

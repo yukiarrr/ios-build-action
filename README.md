@@ -50,6 +50,12 @@ Certificate password. Default `""`.
 
 Output path of ipa. Default `"output.ipa"`.
 
+## Contributions Welcome!
+
+If you have any other inputs you'd like to add, feel free to create PR.
+
+Welcome your contributions!
+
 ## Example usage
 
 ### Unity

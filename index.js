@@ -17,7 +17,7 @@ async function run() {
     process.env.OUTPUT_PATH = core.getInput("output-path");
     process.env.SCHEME = core.getInput("scheme");
 
-    await exec.exec(`/bin/bash ${__dirname}/build.sh`);
+    await exec.exec(`bash ${__dirname}/build.sh`);
   } catch (error) {
     core.setFailed(error.message);
   }

@@ -2,7 +2,10 @@
 
 This action build iOS project. (.xcodeproj, .xcworkspace)
 
-And, can export to ipa, so it can be continuously delivered to DeployGate and TestFlight.
+And can export to ipa, so it can be continuously delivered to DeployGate and TestFlight.
+
+You can add a single p12 key+cert file with `p12-base64`, or if you have key and cert in separate files
+you can add them with `p12-key-base64` and `p12-cer-base64`. One of the two options is required.
 
 ## Inputs
 
@@ -12,7 +15,15 @@ And, can export to ipa, so it can be continuously delivered to DeployGate and Te
 
 ### `p12-base64`
 
-**Required** Base64 encoded p12 file.
+**Required if single file**: Base64 encoded p12 file (key + cert).
+
+### `p12-key-base64`
+
+**Required if split key/cert**: Base64 encoded p12 key file.
+
+### `p12-cer-base64`
+
+**Required if split key/cert**: Base64 encoded certificate for the p12 key.
 
 ### `mobileprovision-base64`
 
@@ -69,4 +80,5 @@ Welcome your contributions!
     code-signing-identity: ${{ secrets.CODE_SIGNING_IDENTITY }}
     team-id: ${{ secrets.TEAM_ID }}
     workspace-path: Unity-iPhone.xcworkspace
+    export-method: development
 ```

@@ -11,12 +11,30 @@ platform :ios do
       unlock: true,
       timeout: 3600
     )
-    import_certificate(
-      certificate_path: "ios-build.p12",
-      certificate_password: ENV["CERTIFICATE_PASSWORD"],
-      keychain_name: "ios-build.keychain",
-      keychain_password: keychain_password
-    )
+    if ENV["CERTIFICATE_SPLIT"] == '1'
+      import_certificate(
+        certificate_path: "ios-build-key.p12",
+        certificate_password: ENV["CERTIFICATE_PASSWORD"],
+        keychain_name: "ios-build.keychain",
+        keychain_password: keychain_password,
+        log_output: true
+      )
+      import_certificate(
+        certificate_path: "ios-build-key.cer",
+        certificate_password: ENV["CERTIFICATE_PASSWORD"],
+        keychain_name: "ios-build.keychain",
+        keychain_password: keychain_password,
+        log_output: true
+      )
+    else
+      import_certificate(
+        certificate_path: "ios-build.p12",
+        certificate_password: ENV["CERTIFICATE_PASSWORD"],
+        keychain_name: "ios-build.keychain",
+        keychain_password: keychain_password,
+        log_output: true
+      )
+    end
     install_provisioning_profile(
       path: "ios-build.mobileprovision"
     )

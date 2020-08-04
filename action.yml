@@ -1,12 +1,18 @@
 name: "iOS Build Action"
-description: "Export ipa"
+description: "Create an IPA file from ios source"
 inputs:
   project-path:
     description: "Project path"
     required: true
+  p12-key-base64:
+    description: "Base64 encoded p12 key"
+    required: false
+  p12-cer-base64:
+    description: "Base64 encoded certificate for the p12 key"
+    required: false
   p12-base64:
-    description: "Base64 encoded p12 file"
-    required: true
+    description: "Base64 encoded p12 file (key + cert)"
+    required: false
   mobileprovision-base64:
     description: "Base64 encoded mobileprovision file"
     required: true

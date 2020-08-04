@@ -12,7 +12,7 @@ platform :ios do
       timeout: 3600
     )
     import_certificate(
-      certificate_path: "ios-build.p12",
+      certificate_path: ENV["CERTIFICATE_FILE"],
       certificate_password: ENV["CERTIFICATE_PASSWORD"],
       keychain_name: "ios-build.keychain",
       keychain_password: keychain_password

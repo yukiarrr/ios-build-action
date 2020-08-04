@@ -3,8 +3,15 @@ const exec = require("@actions/exec");
 
 async function run() {
   try {
+    // Validate p12 keys.
+    if (!core.getInput("p12-base64")
+      && (!core.getInput("p12-cer-base64") || !core.getInput("p12-cer-base64"))) {
+      throw new Error("P12 keys missing or in the wrong format.");
+    }
     process.env.PROJECT_PATH = core.getInput("project-path");
     process.env.P12_BASE64 = core.getInput("p12-base64");
+    process.env.P12_KEY_BASE64 = core.getInput("p12-key-base64");
+    process.env.P12_CER_BASE64 = core.getInput("p12-cer-base64");
     process.env.MOBILEPROVISION_BASE64 = core.getInput(
       "mobileprovision-base64"
     );

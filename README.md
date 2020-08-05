@@ -50,12 +50,18 @@ Certificate password. Default `""`.
 
 Output path of ipa. Default `"output.ipa"`.
 
+## Contributions Welcome!
+
+If you have any other inputs you'd like to add, feel free to create PR.
+
+Welcome your contributions!
+
 ## Example usage
 
 ### Unity
 
 ```yaml
-- uses: yukiarrr/ios-build-action@v0.5.1
+- uses: yukiarrr/ios-build-action@v1.0.0
   with:
     project-path: Unity-iPhone.xcodeproj
     p12-base64: ${{ secrets.P12_BASE64 }}

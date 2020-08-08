@@ -4,10 +4,10 @@ This action build iOS project. (.xcodeproj, .xcworkspace)
 
 And can export to ipa, so it can be continuously delivered to DeployGate and TestFlight.
 
+## Inputs
+
 You can add a single p12 key+cert file with `p12-base64`, or if you have key and cert in separate files
 you can add them with `p12-key-base64` and `p12-cer-base64`. One of the two options is required.
-
-## Inputs
 
 ### `project-path`
 

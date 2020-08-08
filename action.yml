@@ -1,5 +1,5 @@
 name: "iOS Build Action"
-description: "Create an IPA file from ios source"
+description: "Build iOS project (.xcodeproj, .xcworkspace), and export ipa"
 inputs:
   project-path:
     description: "Project path"

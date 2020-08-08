@@ -69,7 +69,7 @@ Welcome your contributions!
 
 ## Example usage
 
-### Unity
+### single p12
 
 ```yaml
 - uses: yukiarrr/ios-build-action@v1.0.0
@@ -79,6 +79,19 @@ Welcome your contributions!
     mobileprovision-base64: ${{ secrets.MOBILEPROVISION_BASE64 }}
     code-signing-identity: ${{ secrets.CODE_SIGNING_IDENTITY }}
     team-id: ${{ secrets.TEAM_ID }}
-    workspace-path: Unity-iPhone.xcworkspace
-    export-method: development
+    workspace-path: Unity-iPhone.xcworkspace # optional
+```
+
+### key and cert
+
+```yaml
+- uses: yukiarrr/ios-build-action@v1.0.0
+  with:
+    project-path: Unity-iPhone.xcodeproj
+    p12-key-base64: ${{ secrets.P12_KEY_BASE64 }}
+    p12-cer-base64: ${{ secrets.P12_CER_BASE64 }}
+    mobileprovision-base64: ${{ secrets.MOBILEPROVISION_BASE64 }}
+    code-signing-identity: ${{ secrets.CODE_SIGNING_IDENTITY }}
+    team-id: ${{ secrets.TEAM_ID }}
+    workspace-path: Unity-iPhone.xcworkspace # optional
 ```

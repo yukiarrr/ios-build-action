@@ -38,10 +38,12 @@ platform :ios do
     install_provisioning_profile(
       path: "ios-build.mobileprovision"
     )
+    disable_targets = ENV["DISABLE_TARGETS"]&.split(/,/)
     update_code_signing_settings(
       use_automatic_signing: false,
       path: ENV["PROJECT_PATH"],
-      targets: "Unity-iPhone"
+      targets: disable_targets
+)
     )
     update_project_provisioning(
       xcodeproj: ENV["PROJECT_PATH"],

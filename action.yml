@@ -46,6 +46,10 @@ inputs:
     description: "Scheme"
     required: false
     default: ""
+  disable-targets:
+    description: "Targets to disable automatic code signing. Input targets separated by ,. For example, 'MyApp,YourApp'."
+    required: false
+    default: ""
 runs:
   using: "node12"
   main: "index.js"

@@ -78,7 +78,7 @@ Welcome your contributions!
 ### single p12
 
 ```yaml
-- uses: yukiarrr/ios-build-action@v1.1.0
+- uses: yukiarrr/ios-build-action@v1.1.1
   with:
     project-path: Unity-iPhone.xcodeproj
     p12-base64: ${{ secrets.P12_BASE64 }}
@@ -91,7 +91,7 @@ Welcome your contributions!
 ### key and cert
 
 ```yaml
-- uses: yukiarrr/ios-build-action@v1.1.0
+- uses: yukiarrr/ios-build-action@v1.1.1
   with:
     project-path: Unity-iPhone.xcodeproj
     p12-key-base64: ${{ secrets.P12_KEY_BASE64 }}

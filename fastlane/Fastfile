@@ -43,7 +43,7 @@ platform :ios do
       use_automatic_signing: false,
       path: ENV["PROJECT_PATH"],
       targets: disable_targets
-	)
+    )
     update_project_provisioning(
       xcodeproj: ENV["PROJECT_PATH"],
       profile: "ios-build.mobileprovision",

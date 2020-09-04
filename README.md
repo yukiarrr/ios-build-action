@@ -67,6 +67,20 @@ Output path of ipa. Default `"output.ipa"`.
 
 These targets will not use automatic code signing and instead use the identity specified in other inputs. Input targets separated by ','. For example, 'MyApp,YourApp'. Default "".  (default to all targets)
 
+### `browserstack-upload`
+
+Set this to true to upload the resulting .ipa file to Browserstack App Live right after the build (https://www.browserstack.com/docs/app-live/integrations/fastlane)
+
+Defaut to false.
+
+### `browserstack-username`
+
+Browserstack username (**required if** browserstack-upload == true)
+
+### `browserstack-access-key`
+
+Browserstack access key (**required if** browserstack-upload == true)
+
 ## Contributions Welcome!
 
 If you have any other inputs you'd like to add, feel free to create PR.

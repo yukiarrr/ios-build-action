@@ -72,6 +72,13 @@ platform :ios do
         export_method: ENV["EXPORT_METHOD"]
       )
     end
+    if ENV["BROWSERSTACK_UPLOAD"] == 'true'
+        upload_to_browserstack_app_live(
+            browserstack_username: ENV["BROWSERSTACK_USERNAME"],
+            browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
+            file_path: ENV["OUTPUT_PATH"]
+        )
+    end
     delete_keychain(
       name: "ios-build.keychain"
     )

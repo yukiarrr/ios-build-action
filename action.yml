@@ -1,4 +1,8 @@
 name: "Build iOS App"
+author: "SparkFabrik"
+branding:
+  icon: 'smartphone'
+  color: 'white'
 description: "Build iOS project (.xcodeproj, .xcworkspace), export .ipa, optional upload to BrowserStack App Live."
 inputs:
   project-path:

@@ -1,5 +1,5 @@
-name: "iOS Build Action"
-description: "Build iOS project (.xcodeproj, .xcworkspace), and export ipa"
+name: "Build iOS App"
+description: "Build iOS project (.xcodeproj, .xcworkspace), export .ipa, optional upload to BrowserStack App Live."
 inputs:
   project-path:
     description: "Project path"

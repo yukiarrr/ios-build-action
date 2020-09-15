@@ -1,10 +1,8 @@
-# iOS Build Action
+# Build iOS App
 
-This action build iOS project. (.xcodeproj, .xcworkspace)
+This action builds iOS project (`.xcodeproj`, `.xcworkspace`) and exports the resulting `.ipa` file as GitHub artifact, with optional automatic upload to BrowserStack.
 
-And can export to ipa, so it can be continuously delivered to DeployGate and TestFlight.
-
-self-hosted is also supported. If you use self-hosted, install Xcode.
+Works with Ionic projects.
 
 ## Inputs
 
@@ -92,7 +90,7 @@ Welcome your contributions!
 ### single p12
 
 ```yaml
-- uses: yukiarrr/ios-build-action@v1.1.1
+- uses: sparkfabrik/ios-build-action@v1.0.0
   with:
     project-path: Unity-iPhone.xcodeproj
     p12-base64: ${{ secrets.P12_BASE64 }}
@@ -105,7 +103,7 @@ Welcome your contributions!
 ### key and cert
 
 ```yaml
-- uses: yukiarrr/ios-build-action@v1.1.1
+- uses: sparkfabrik/ios-build-action@v1.0.0
   with:
     project-path: Unity-iPhone.xcodeproj
     p12-key-base64: ${{ secrets.P12_KEY_BASE64 }}

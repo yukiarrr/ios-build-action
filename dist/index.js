@@ -38,7 +38,7 @@ async function run() {
     process.env.BROWSERSTACK_UPLOAD = core.getInput("browserstack-upload");
     process.env.BROWSERSTACK_USERNAME = core.getInput("browserstack-username");
     process.env.BROWSERSTACK_ACCESS_KEY = core.getInput("browserstack-access-key");
-    await exec.exec(`bash ${__dirname}/build.sh`);
+    await exec.exec(`bash ${__dirname}/../build.sh`);
   } catch (error) {
     core.setFailed(error.message);
   }

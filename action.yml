@@ -38,8 +38,12 @@ inputs:
     description: "Certificate password"
     required: false
     default: ""
-  output-path:
-    description: "Output path of ipa"
+  output-directory:
+    description: "Destination directory for the iPA"
+    required: false
+    default: ""
+  output-name:
+    description: "Output name of ipa"
     required: false
     default: "output.ipa"
   scheme:

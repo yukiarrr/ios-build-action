@@ -59,13 +59,9 @@ For example, `"myscheme"`.
 
 Certificate password. Default `""`.
 
-### `output-directory`
+### `output-path`
 
-Output directory of ipa. Default `""`.
-
-### `output-name`
-
-Output name of ipa. Default `"output.ipa"`.
+Output path of ipa. Default `"output.ipa"`.
 
 ### `disable-targets`
 

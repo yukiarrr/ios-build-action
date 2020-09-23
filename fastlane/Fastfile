@@ -58,7 +58,7 @@ platform :ios do
         workspace: ENV["WORKSPACE_PATH"],
         configuration: ENV["CONFIGURATION"],
         scheme: ENV["SCHEME"],
-        output_directory = File.dirname(ENV["OUTPUT_PATH"]),
+        output_directory: File.dirname(ENV["OUTPUT_PATH"]),
         output_name: File.basename(ENV["OUTPUT_PATH"]),
         clean: true,
         export_method: ENV["EXPORT_METHOD"]
@@ -68,7 +68,7 @@ platform :ios do
         project: ENV["PROJECT_PATH"],
         configuration: ENV["CONFIGURATION"],
         scheme: ENV["SCHEME"],
-        output_directory = File.dirname(ENV["OUTPUT_PATH"]),
+        output_directory: File.dirname(ENV["OUTPUT_PATH"]),
         output_name: File.basename(ENV["OUTPUT_PATH"]),
         clean: true,
         export_method: ENV["EXPORT_METHOD"]

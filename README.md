@@ -65,7 +65,7 @@ Output path of ipa. Default `"output.ipa"`.
 
 ### `disable-targets`
 
-These targets will not use automatic code signing and instead use the identity specified in other inputs. Input targets separated by ','. For example, 'MyApp,YourApp'. Default "".  (default to all targets)
+These targets will not use automatic code signing and instead use the identity specified in other inputs. Input targets separated by ','. For example, 'MyApp,YourApp'. Default "". (default to all targets)
 
 ## Contributions Welcome!
 

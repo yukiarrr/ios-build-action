@@ -47,11 +47,13 @@ platform :ios do
     update_project_provisioning(
       xcodeproj: ENV["PROJECT_PATH"],
       profile: "ios-build.mobileprovision",
-      code_signing_identity: ENV["CODE_SIGNING_IDENTITY"]
+      code_signing_identity: ENV["CODE_SIGNING_IDENTITY"],
+      target_filter: disable_targets&.map{|target| "^#{Regexp.escape(target)}$" }.join("|")
     )
     update_project_team(
       path: ENV["PROJECT_PATH"],
-      teamid: ENV["TEAM_ID"]
+      teamid: ENV["TEAM_ID"],
+      targets: disable_targets
     )
     if ENV["WORKSPACE_PATH"] != ""
       build_app(

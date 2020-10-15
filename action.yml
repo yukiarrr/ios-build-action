@@ -46,8 +46,12 @@ inputs:
     description: "Scheme"
     required: false
     default: ""
+  update-targets:
+    description: "Targets to be updated with mobileprovision, code signing identity, etc"
+    required: false
+    default: ""
   disable-targets:
-    description: "Targets to disable automatic code signing. Input targets separated by ,. For example, 'MyApp,YourApp'."
+    description: "Deprecated, use update-targets instead"
     required: false
     default: ""
 runs:

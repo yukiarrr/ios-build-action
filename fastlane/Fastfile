@@ -38,26 +38,30 @@ platform :ios do
     install_provisioning_profile(
       path: "ios-build.mobileprovision"
     )
-    disable_targets = ENV["DISABLE_TARGETS"].split(/,/)
+    if ENV["UPDATE_TARGETS"] != ""
+      update_targets = ENV["UPDATE_TARGETS"].split(/\R/)
+    else
+      update_targets = ENV["DISABLE_TARGETS"].split(/,/)
+    end
     update_code_signing_settings(
       use_automatic_signing: false,
       path: ENV["PROJECT_PATH"],
-      targets: disable_targets
+      targets: update_targets
     )
     update_project_provisioning(
       xcodeproj: ENV["PROJECT_PATH"],
       profile: "ios-build.mobileprovision",
       code_signing_identity: ENV["CODE_SIGNING_IDENTITY"],
-      target_filter: disable_targets.map{|target| "^#{Regexp.escape(target)}$" }.join("|")
+      target_filter: update_targets.map{|target| "^#{Regexp.escape(target)}$" }.join("|")
     )
     update_project_team(
       path: ENV["PROJECT_PATH"],
       teamid: ENV["TEAM_ID"],
-      targets: disable_targets
+      targets: update_targets
     )
     project = Xcodeproj::Project.open(Pathname(ENV["PROJECT_PATH"]).absolute? ? ENV["PROJECT_PATH"] : "../#{ENV['PROJECT_PATH']}")
     project.targets.each do |target|
-      next if !disable_targets.empty? && !disable_targets.include?(target.name)
+      next if !update_targets.empty? && !update_targets.include?(target.name)
       configuration = target.build_configurations.find {|bc| bc.name == ENV["CONFIGURATION"] }
       configuration.build_settings["PRODUCT_BUNDLE_IDENTIFIER"] = resolve_recursive_build_setting(configuration, "PRODUCT_BUNDLE_IDENTIFIER")
     end

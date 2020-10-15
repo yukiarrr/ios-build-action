@@ -23,6 +23,7 @@ async function run() {
     process.env.CERTIFICATE_PASSWORD = core.getInput("certificate-password");
     process.env.OUTPUT_PATH = core.getInput("output-path");
     process.env.SCHEME = core.getInput("scheme");
+    process.env.UPDATE_TARGETS = core.getInput("update-targets");
     process.env.DISABLE_TARGETS = core.getInput("disable-targets");
     await exec.exec(`bash ${__dirname}/build.sh`);
   } catch (error) {

@@ -8,36 +8,45 @@ self-hosted is also supported. If you use self-hosted, install Xcode.
 
 ## Inputs
 
-You can add a single p12 key+cert file with `p12-base64`, or if you have key and cert in separate files
-you can add them with `p12-key-base64` and `p12-cer-base64`. One of the two options is required.
+### p12
 
-### `project-path`
+You can add a single p12 key+cert file with `p12-base64`, or if you have key and cert in separate files you can add them with `p12-key-base64` and `p12-cer-base64`. One of the two options is required.
 
-**Required** .xcodeproj path.
-
-### `p12-base64`
+#### `p12-base64`
 
 **Required if single file**: Base64 encoded p12 file (key + cert).
 
-### `p12-key-base64`
+#### `p12-key-base64`
 
 **Required if split key/cert**: Base64 encoded p12 key file.
 
-### `p12-cer-base64`
+#### `p12-cer-base64`
 
 **Required if split key/cert**: Base64 encoded certificate for the p12 key.
 
 ### `mobileprovision-base64`
 
-**Required** Base64 encoded mobileprovision file.
+**Required**: Base64 encoded mobileprovision file. If you want to specify multiple files, you need to input in multiple lines and then use [`export-options`](#export-options) to specify the provisioning profile to use for each executable in your app.
+
+```yaml
+- uses: yukiarrr/ios-build-action@v1.2.0
+  with:
+    mobileprovision-base64: |
+      ${{ secrets.MY_MOBILEPROVISION_BASE64 }}
+      ${{ secrets.YOUR_MOBILEPROVISION_BASE64 }}
+```
+
+### `project-path`
+
+**Required**: .xcodeproj path.
 
 ### `code-signing-identity`
 
-**Required** For example, `"iOS Distribution"`.
+**Required**: For example, `"iOS Distribution"`.
 
 ### `team-id`
 
-**Required** Team id.
+**Required**: Team id.
 
 ### `workspace-path`
 
@@ -45,7 +54,7 @@ you can add them with `p12-key-base64` and `p12-cer-base64`. One of the two opti
 
 ### `export-method`
 
-Choose app-store, `"ad-hoc"`, `"package"` `"enterprise"`, `"development"`, or `"developer-id"`. Default `"app-store"`.
+Choose `"app-store"`, `"ad-hoc"`, `"package"` `"enterprise"`, `"development"`, or `"developer-id"`. Default `"app-store"`.
 
 ### `configuration`
 
@@ -53,7 +62,7 @@ For example, `"Debug"`, `"Release"`. Default `"Release"`.
 
 ### `scheme`
 
-For example, `"myscheme"`.
+For example, `"MyScheme"`.
 
 ### `certificate-password`
 
@@ -77,9 +86,13 @@ Targets to be updated with mobileprovision, code signing identity, etc. Split on
 
 ### `disable-targets`
 
-Deprecated, use `update-targets` instead.
+Deprecated, use [`update-targets`](#update-targets) instead.
 
-These targets will not use automatic code signing and instead use the identity specified in other inputs. Input targets separated by ','. For example, 'MyApp,YourApp'. Default "". (default to all targets)
+These targets will not use automatic code signing and instead use the identity specified in other inputs. Input targets separated by `","`. For example, `"MyApp,YourApp"`. Default `""`. (default to all targets)
+
+### `export-options`
+
+Path to an export options plist. Default `""`.
 
 ## Contributions Welcome!
 

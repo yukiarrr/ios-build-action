@@ -21,5 +21,9 @@
     "@actions/core": "^1.2.2",
     "@actions/exec": "^1.0.3",
     "@actions/github": "^2.1.1"
+  },
+  "devDependencies": {
+    "@prettier/plugin-ruby": "0.20.1",
+    "prettier": "2.1.2"
   }
 }

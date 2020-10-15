@@ -1,9 +1,6 @@
 name: "iOS Build Action"
 description: "Build iOS project (.xcodeproj, .xcworkspace), and export ipa"
 inputs:
-  project-path:
-    description: "Project path"
-    required: true
   p12-key-base64:
     description: "Base64 encoded p12 key"
     required: false
@@ -15,6 +12,9 @@ inputs:
     required: false
   mobileprovision-base64:
     description: "Base64 encoded mobileprovision file"
+    required: true
+  project-path:
+    description: "Project path"
     required: true
   code-signing-identity:
     description: "For example, iOS Distribution"
@@ -52,6 +52,10 @@ inputs:
     default: ""
   disable-targets:
     description: "Deprecated, use update-targets instead"
+    required: false
+    default: ""
+  export-options:
+    description: "Path to an export options plist"
     required: false
     default: ""
 runs:

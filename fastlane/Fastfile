@@ -80,17 +80,19 @@ platform :ios do
         )
     end
     project.save
+    use_workspace = !ENV['WORKSPACE_PATH'].empty?
+    use_export_options = !ENV['EXPORT_OPTIONS'].empty?
     build_app(
-      workspace: !ENV['WORKSPACE_PATH'].empty? ? ENV['WORKSPACE_PATH'] : nil,
-      project: ENV['WORKSPACE_PATH'].empty? ? ENV['PROJECT_PATH'] : nil,
+      workspace: use_workspace ? ENV['WORKSPACE_PATH'] : nil,
+      project: !use_workspace ? ENV['PROJECT_PATH'] : nil,
       configuration: ENV['CONFIGURATION'],
       scheme: ENV['SCHEME'],
       output_directory: File.dirname(ENV['OUTPUT_PATH']),
       output_name: File.basename(ENV['OUTPUT_PATH']),
       clean: true,
       export_method: ENV['EXPORT_METHOD'],
-      export_options:
-        !ENV['EXPORT_OPTIONS'].empty? ? ENV['EXPORT_OPTIONS'] : nil
+      export_options: use_export_options ? ENV['EXPORT_OPTIONS'] : nil,
+      skip_profile_detection: use_export_options
     )
     delete_keychain(name: 'ios-build.keychain')
   end

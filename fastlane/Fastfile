@@ -38,7 +38,7 @@ platform :ios do
     install_provisioning_profile(
       path: "ios-build.mobileprovision"
     )
-    disable_targets = ENV["DISABLE_TARGETS"]&.split(/,/)
+    disable_targets = ENV["DISABLE_TARGETS"].split(/,/)
     update_code_signing_settings(
       use_automatic_signing: false,
       path: ENV["PROJECT_PATH"],
@@ -48,13 +48,20 @@ platform :ios do
       xcodeproj: ENV["PROJECT_PATH"],
       profile: "ios-build.mobileprovision",
       code_signing_identity: ENV["CODE_SIGNING_IDENTITY"],
-      target_filter: disable_targets&.map{|target| "^#{Regexp.escape(target)}$" }.join("|")
+      target_filter: disable_targets.map{|target| "^#{Regexp.escape(target)}$" }.join("|")
     )
     update_project_team(
       path: ENV["PROJECT_PATH"],
       teamid: ENV["TEAM_ID"],
       targets: disable_targets
     )
+    project = Xcodeproj::Project.open(Pathname(ENV["PROJECT_PATH"]).absolute? ? ENV["PROJECT_PATH"] : "../#{ENV['PROJECT_PATH']}")
+    project.targets.each do |target|
+      next if !disable_targets.empty? && !disable_targets.include?(target.name)
+      configuration = target.build_configurations.find {|bc| bc.name == ENV["CONFIGURATION"] }
+      configuration.build_settings["PRODUCT_BUNDLE_IDENTIFIER"] = resolve_recursive_build_setting(configuration, "PRODUCT_BUNDLE_IDENTIFIER")
+    end
+    project.save
     if ENV["WORKSPACE_PATH"] != ""
       build_app(
         workspace: ENV["WORKSPACE_PATH"],
@@ -79,5 +86,48 @@ platform :ios do
     delete_keychain(
       name: "ios-build.keychain"
     )
+  end
+
+  # https://github.com/CocoaPods/Xcodeproj/issues/505#issuecomment-584699008
+  # Augments config.resolve_build_setting from xcproject
+  # to continue expanding build settings and evaluate modifiers
+  def resolve_recursive_build_setting(config, setting)
+    resolution = config.resolve_build_setting(setting)
+
+    # finds values with one of
+    # $VALUE
+    # $(VALLUE)
+    # $(VALUE:modifier)
+    # ${VALUE}
+    # ${VALUE:modifier}
+    resolution&.gsub(/\$[\(\{]?.+[\)\}]?/) do |raw_value|
+      # strip $() characters
+      unresolved = raw_value.gsub(/[\$\(\)\{\}]/, '')
+
+      # Get the modifiers after the ':' characters
+      name, *modifiers = unresolved.split(':')
+
+      # Expand variable name
+      subresolution = resolve_recursive_build_setting(config, name)
+
+      # Apply modifiers
+      # NOTE: not all cases accounted for
+      #
+      # See http://codeworkshop.net/posts/xcode-build-setting-transformations
+      # for various modifier options
+      modifiers.each do |modifier|
+        case modifier
+        when 'lower'
+          subresolution.downcase!
+        when 'upper'
+          subresolution.upcase!
+        else
+          # Fastlane message
+          UI.error("Unknown modifier: `#{modifier}` in `#{raw_value}")
+        end
+      end
+
+      subresolution
+    end
   end
 end

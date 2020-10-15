@@ -4,7 +4,9 @@ platform :ios do
   desc 'Export ipa'
   lane :export_ipa do
     decode_file
+
     keychain_password = SecureRandom.uuid
+
     create_keychain(
       name: 'ios-build.keychain',
       password: keychain_password,
@@ -12,6 +14,7 @@ platform :ios do
       unlock: true,
       timeout: 3600
     )
+
     if @is_split_cer
       import_certificate(
         certificate_path: 'ios-build-key.p12',
@@ -36,17 +39,21 @@ platform :ios do
         log_output: true
       )
     end
+
     @profiles.each { |profile| install_provisioning_profile(path: profile) }
+
     if !ENV['UPDATE_TARGETS'].empty?
       update_targets = ENV['UPDATE_TARGETS'].split(/\R/)
     else
       update_targets = ENV['DISABLE_TARGETS'].split(/,/)
     end
+
     update_code_signing_settings(
       use_automatic_signing: false,
       path: ENV['PROJECT_PATH'],
       targets: update_targets
     )
+
     if @profiles.length == 1
       update_project_provisioning(
         xcodeproj: ENV['PROJECT_PATH'],
@@ -56,9 +63,30 @@ platform :ios do
           update_targets.map { |target| "^#{Regexp.escape(target)}$" }.join('|')
       )
     end
+
     update_project_team(
       path: ENV['PROJECT_PATH'], teamid: ENV['TEAM_ID'], targets: update_targets
     )
+
+    use_export_options = !ENV['EXPORT_OPTIONS'].empty?
+
+    if use_export_options
+      doc =
+        REXML::Document.new(
+          if Pathname(ENV['EXPORT_OPTIONS']).absolute?
+            File.read(ENV['EXPORT_OPTIONS'])
+          else
+            File.read("../#{ENV['EXPORT_OPTIONS']}")
+          end
+        )
+      profile_hash = {}
+      doc.elements.each('//plist/dict/key') do |element|
+        next if element.text != 'provisioningProfiles'
+        element.next_element.elements.each('key') do |profile|
+          profile_hash[profile.text] = profile.next_element.text
+        end
+      end
+    end
     project =
       Xcodeproj::Project.open(
         if Pathname(ENV['PROJECT_PATH']).absolute?
@@ -73,15 +101,20 @@ platform :ios do
         target.build_configurations.find do |bc|
           bc.name == ENV['CONFIGURATION']
         end
-      configuration.build_settings['PRODUCT_BUNDLE_IDENTIFIER'] =
+      app_identifier =
         resolve_recursive_build_setting(
           configuration,
           'PRODUCT_BUNDLE_IDENTIFIER'
         )
+      configuration.build_settings['PRODUCT_BUNDLE_IDENTIFIER'] = app_identifier
+      if use_export_options && !profile_hash[app_identifier].nil?
+        configuration.build_settings['PROVISIONING_PROFILE_SPECIFIER'] =
+          profile_hash[app_identifier]
+      end
     end
     project.save
+
     use_workspace = !ENV['WORKSPACE_PATH'].empty?
-    use_export_options = !ENV['EXPORT_OPTIONS'].empty?
     build_app(
       workspace: use_workspace ? ENV['WORKSPACE_PATH'] : nil,
       project: !use_workspace ? ENV['PROJECT_PATH'] : nil,
@@ -94,6 +127,7 @@ platform :ios do
       export_options: use_export_options ? ENV['EXPORT_OPTIONS'] : nil,
       skip_profile_detection: use_export_options
     )
+
     delete_keychain(name: 'ios-build.keychain')
   end
 
@@ -150,6 +184,7 @@ platform :ios do
     else
       File.write('../ios-build.p12', Base64.decode64(ENV['P12_BASE64']))
     end
+
     @profiles = []
     ENV['MOBILEPROVISION_BASE64'].split(/\R/).each.with_index(
       1

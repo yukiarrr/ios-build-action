@@ -71,27 +71,17 @@ platform :ios do
       configuration.build_settings["PRODUCT_BUNDLE_IDENTIFIER"] = resolve_recursive_build_setting(configuration, "PRODUCT_BUNDLE_IDENTIFIER")
     end
     project.save
-    if !ENV["WORKSPACE_PATH"].empty?
-      build_app(
-        workspace: ENV["WORKSPACE_PATH"],
-        configuration: ENV["CONFIGURATION"],
-        scheme: ENV["SCHEME"],
-        output_directory: File.dirname(ENV["OUTPUT_PATH"]),
-        output_name: File.basename(ENV["OUTPUT_PATH"]),
-        clean: true,
-        export_method: ENV["EXPORT_METHOD"]
-      )
-    else
-      build_app(
-        project: ENV["PROJECT_PATH"],
-        configuration: ENV["CONFIGURATION"],
-        scheme: ENV["SCHEME"],
-        output_directory: File.dirname(ENV["OUTPUT_PATH"]),
-        output_name: File.basename(ENV["OUTPUT_PATH"]),
-        clean: true,
-        export_method: ENV["EXPORT_METHOD"]
-      )
-    end
+    build_app(
+      workspace: !ENV["WORKSPACE_PATH"].empty? ? ENV["WORKSPACE_PATH"] : nil,
+      project: ENV["WORKSPACE_PATH"].empty? ? ENV["PROJECT_PATH"] : nil,
+      configuration: ENV["CONFIGURATION"],
+      scheme: ENV["SCHEME"],
+      output_directory: File.dirname(ENV["OUTPUT_PATH"]),
+      output_name: File.basename(ENV["OUTPUT_PATH"]),
+      clean: true,
+      export_method: ENV["EXPORT_METHOD"],
+      export_options: !ENV["EXPORT_OPTIONS"].empty? ? ENV["EXPORT_OPTIONS"] : nil
+    )
     delete_keychain(
       name: "ios-build.keychain"
     )

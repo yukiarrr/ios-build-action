@@ -54,6 +54,10 @@ inputs:
     description: "Deprecated, use update-targets instead"
     required: false
     default: ""
+  export-options:
+    description: "Path to an export options plist"
+    required: false
+    default: ""
 runs:
   using: "node12"
   main: "index.js"

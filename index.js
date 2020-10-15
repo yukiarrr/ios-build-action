@@ -29,6 +29,7 @@ async function run() {
     process.env.SCHEME = core.getInput("scheme");
     process.env.UPDATE_TARGETS = core.getInput("update-targets");
     process.env.DISABLE_TARGETS = core.getInput("disable-targets");
+    process.env.EXPORT_OPTIONS = core.getInput("export-options");
 
     // Execute build.sh
     await exec.exec(`bash ${__dirname}/build.sh`);

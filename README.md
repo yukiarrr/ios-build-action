@@ -29,7 +29,15 @@ you can add them with `p12-key-base64` and `p12-cer-base64`. One of the two opti
 
 ### `mobileprovision-base64`
 
-**Required** Base64 encoded mobileprovision file.
+**Required** Base64 encoded mobileprovision file. If you want to specify multiple files, you need to input in multiple lines and then use [`export-options`](#export-options) to specify the provisioning profile to use for each executable in your app.
+
+```yaml
+- uses: yukiarrr/ios-build-action@v1.2.0
+  with:
+    mobileprovision-base64: |
+      ${{ secrets.MY_MOBILEPROVISION_BASE64 }}
+      ${{ secrets.YOUR_MOBILEPROVISION_BASE64 }}
+```
 
 ### `code-signing-identity`
 
@@ -80,6 +88,10 @@ Targets to be updated with mobileprovision, code signing identity, etc. Split on
 Deprecated, use `update-targets` instead.
 
 These targets will not use automatic code signing and instead use the identity specified in other inputs. Input targets separated by ','. For example, 'MyApp,YourApp'. Default "". (default to all targets)
+
+### `export-options`
+
+Path to an export options plist. Default `""`.
 
 ## Contributions Welcome!
 

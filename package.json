@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/yukiarrr/ios-build-action#readme",
   "dependencies": {
-    "@actions/core": "^1.2.2",
+    "@actions/core": "^1.2.6",
     "@actions/exec": "^1.0.3",
     "@actions/github": "^2.1.1"
   },

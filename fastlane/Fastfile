@@ -3,6 +3,7 @@ default_platform(:ios)
 platform :ios do
   desc "Export ipa"
   lane :export_ipa do
+    decode_file
     keychain_password = SecureRandom.uuid
     create_keychain(
       name: "ios-build.keychain",
@@ -11,7 +12,7 @@ platform :ios do
       unlock: true,
       timeout: 3600
     )
-    if ENV["CERTIFICATE_SPLIT"] == '1'
+    if @is_split_cer
       import_certificate(
         certificate_path: "ios-build-key.p12",
         certificate_password: ENV["CERTIFICATE_PASSWORD"],
@@ -35,10 +36,12 @@ platform :ios do
         log_output: true
       )
     end
-    install_provisioning_profile(
-      path: "ios-build.mobileprovision"
-    )
-    if ENV["UPDATE_TARGETS"] != ""
+    @profiles.each do |profile|
+      install_provisioning_profile(
+        path: profile
+      )
+    end
+    if !ENV["UPDATE_TARGETS"].empty?
       update_targets = ENV["UPDATE_TARGETS"].split(/\R/)
     else
       update_targets = ENV["DISABLE_TARGETS"].split(/,/)
@@ -48,12 +51,14 @@ platform :ios do
       path: ENV["PROJECT_PATH"],
       targets: update_targets
     )
-    update_project_provisioning(
-      xcodeproj: ENV["PROJECT_PATH"],
-      profile: "ios-build.mobileprovision",
-      code_signing_identity: ENV["CODE_SIGNING_IDENTITY"],
-      target_filter: update_targets.map{|target| "^#{Regexp.escape(target)}$" }.join("|")
-    )
+    if @profiles.length == 1
+      update_project_provisioning(
+        xcodeproj: ENV["PROJECT_PATH"],
+        profile: @profiles[0],
+        code_signing_identity: ENV["CODE_SIGNING_IDENTITY"],
+        target_filter: update_targets.map{|target| "^#{Regexp.escape(target)}$" }.join("|")
+      )
+    end
     update_project_team(
       path: ENV["PROJECT_PATH"],
       teamid: ENV["TEAM_ID"],
@@ -66,7 +71,7 @@ platform :ios do
       configuration.build_settings["PRODUCT_BUNDLE_IDENTIFIER"] = resolve_recursive_build_setting(configuration, "PRODUCT_BUNDLE_IDENTIFIER")
     end
     project.save
-    if ENV["WORKSPACE_PATH"] != ""
+    if !ENV["WORKSPACE_PATH"].empty?
       build_app(
         workspace: ENV["WORKSPACE_PATH"],
         configuration: ENV["CONFIGURATION"],
@@ -132,6 +137,22 @@ platform :ios do
       end
 
       subresolution
+    end
+  end
+
+  def decode_file
+    @is_split_cer = !ENV["P12_KEY_BASE64"].empty? && !ENV["P12_CER_BASE64"].empty?
+    if @is_split_cer
+      File.write("../ios-build-key.p12", Base64.decode64(ENV["P12_KEY_BASE64"]))
+      File.write("../ios-build-key.cer", Base64.decode64(ENV["P12_CER_BASE64"]))
+    else
+      File.write("../ios-build.p12", Base64.decode64(ENV["P12_BASE64"]))
+    end
+    @profiles = []
+    ENV["MOBILEPROVISION_BASE64"].split(/\R/).each.with_index(1) do |profile, index|
+      filename = "ios-build-#{index}.mobileprovision"
+      File.write("../#{filename}", Base64.decode64(profile))
+      @profiles.push(filename)
     end
   end
 end

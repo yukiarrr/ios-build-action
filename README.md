@@ -63,7 +63,21 @@ Certificate password. Default `""`.
 
 Output path of ipa. Default `"output.ipa"`.
 
+### `update-targets`
+
+Targets to be updated with mobileprovision, code signing identity, etc. Split on new lines. Default `""`. (default to all targets)
+
+```yaml
+- uses: yukiarrr/ios-build-action@v1.2.0
+  with:
+    update-targets: |
+      MyApp
+      YourApp
+```
+
 ### `disable-targets`
+
+Deprecated, use `update-targets` instead.
 
 These targets will not use automatic code signing and instead use the identity specified in other inputs. Input targets separated by ','. For example, 'MyApp,YourApp'. Default "". (default to all targets)
 

@@ -53,6 +53,11 @@ platform :ios do
       path: ENV["PROJECT_PATH"],
       teamid: ENV["TEAM_ID"]
     )
+    if ENV["BUILD_PODS"] == 'true'
+      cocoapods(
+        podfile: ENV["PODS_PATH"]
+      )
+    end
     if ENV["WORKSPACE_PATH"] != ""
       build_app(
         workspace: ENV["WORKSPACE_PATH"],

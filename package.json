@@ -1,9 +1,10 @@
 {
   "name": "spark-ios-build-action",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "bundle": "ncc build index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -13,5 +14,8 @@
     "@actions/core": "1.2.6",
     "@actions/exec": "1.0.4",
     "@actions/github": "4.0.0"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "0.24.1"
   }
 }

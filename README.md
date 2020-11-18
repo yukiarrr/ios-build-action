@@ -1,8 +1,8 @@
 # Build iOS App
 
-This action builds iOS project (`.xcodeproj`, `.xcworkspace`) and exports the resulting `.ipa` file as GitHub artifact, with optional automatic upload to BrowserStack.
+This action builds your iOS project (`.xcodeproj`, `.xcworkspace`) and exports the resulting `.ipa` file as GitHub artifact, with optional automatic upload to BrowserStack AppLive.
 
-Works with Ionic projects.
+Tested with Ionic, React Native and native ios projects.
 
 ## Inputs
 

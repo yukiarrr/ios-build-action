@@ -65,6 +65,14 @@ Output path of ipa. Default `"output.ipa"`.
 
 These targets will not use automatic code signing and instead use the identity specified in other inputs. Input targets separated by ','. For example, 'MyApp,YourApp'. Default "".  (default to all targets)
 
+### `build-pods`
+
+Run the `pod install` command during the build.
+
+### `pods-path`
+
+The path to the Podfile. Default `"Podfile"`
+
 ### `browserstack-upload`
 
 Set this to true to upload the resulting .ipa file to Browserstack App Live right after the build (https://www.browserstack.com/docs/app-live/integrations/fastlane)
@@ -82,8 +90,7 @@ Browserstack access key (**required if** browserstack-upload == true)
 ## Contributions Welcome!
 
 If you have any other inputs you'd like to add, feel free to create PR.
-
-Welcome your contributions!
+Remember to run `yarn install` and `yarn bundle` if you make changes to the `index.js`.
 
 ## Example usage
 

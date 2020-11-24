@@ -32,7 +32,7 @@ async function run() {
     process.env.EXPORT_OPTIONS = core.getInput("export-options");
 
     // Execute build.sh
-    await exec.exec(`bash ${__dirname}/build.sh`);
+    await exec.exec(`bash ${__dirname}/../build.sh`);
   } catch (error) {
     core.setFailed(error.message);
   }

@@ -42,9 +42,10 @@ platform :ios do
 
     @profiles.each { |profile| install_provisioning_profile(path: profile) }
 
+    update_targets = nil
     if !ENV['UPDATE_TARGETS'].empty?
       update_targets = ENV['UPDATE_TARGETS'].split(/\R/)
-    else
+    elsif !ENV['DISABLE_TARGETS'].empty?
       update_targets = ENV['DISABLE_TARGETS'].split(/,/)
     end
 
@@ -60,7 +61,13 @@ platform :ios do
         xcodeproj: ENV['PROJECT_PATH'],
         profile: @profiles[0],
         target_filter:
-          update_targets.map { |target| "^#{Regexp.escape(target)}$" }.join('|')
+          if update_targets
+            update_targets.map { |target| "^#{Regexp.escape(target)}$" }.join(
+              '|'
+            )
+          else
+            nil
+          end
       )
     end
 
@@ -96,7 +103,10 @@ platform :ios do
         end
       )
     project.targets.each do |target|
-      next if !update_targets.empty? && !update_targets.include?(target.name)
+      if update_targets && !update_targets.empty? &&
+           !update_targets.include?(target.name)
+        next
+      end
       configuration =
         target.build_configurations.find do |bc|
           bc.name == ENV['CONFIGURATION']

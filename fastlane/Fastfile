@@ -51,6 +51,7 @@ platform :ios do
     update_code_signing_settings(
       use_automatic_signing: false,
       path: ENV['PROJECT_PATH'],
+      code_sign_identity: ENV['CODE_SIGNING_IDENTITY'],
       targets: update_targets
     )
 
@@ -58,7 +59,6 @@ platform :ios do
       update_project_provisioning(
         xcodeproj: ENV['PROJECT_PATH'],
         profile: @profiles[0],
-        code_signing_identity: ENV['CODE_SIGNING_IDENTITY'],
         target_filter:
           update_targets.map { |target| "^#{Regexp.escape(target)}$" }.join('|')
       )

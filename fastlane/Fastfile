@@ -195,13 +195,13 @@ platform :ios do
       File.write('../ios-build.p12', Base64.decode64(ENV['P12_BASE64']))
     end
 
-    puts ENV['MOBILEPROVISION_BASE64']
-
     @profiles = []
     ENV['MOBILEPROVISION_BASE64'].split(/\R/).each.with_index(
       1
     ) do |profile, index|
       filename = "ios-build-#{index}.mobileprovision"
+      puts "creating ../#{filename}"
+      puts "using #{Base64.decode64(profile)}"
       File.write("../#{filename}", Base64.decode64(profile))
       @profiles.push(filename)
     end

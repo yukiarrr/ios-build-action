@@ -36,7 +36,7 @@ You can add a single p12 key+cert file with `p12-base64`, or if you have key and
       ${{ secrets.YOUR_MOBILEPROVISION_BASE64 }}
 ```
 
-> NOTE:- when creating base64 encoded inputs, make sure they don't contain newlines, e.g.
+Also note, when creating base64 encoded inputs, make sure they don't contain newlines, e.g.
 
     openssl base64 -in MyAppProvisioning.mobileprovision -A
 

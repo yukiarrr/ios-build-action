@@ -200,6 +200,7 @@ platform :ios do
       1
     ) do |profile, index|
       filename = "ios-build-#{index}.mobileprovision"
+      puts "creating ../#{filename}"
       File.write("../#{filename}", Base64.decode64(profile))
       @profiles.push(filename)
     end

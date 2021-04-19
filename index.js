@@ -30,6 +30,7 @@ async function run() {
     process.env.UPDATE_TARGETS = core.getInput("update-targets");
     process.env.DISABLE_TARGETS = core.getInput("disable-targets");
     process.env.EXPORT_OPTIONS = core.getInput("export-options");
+    process.env.CLONED_SOURCE_PACKAGES_PATH = core.getInput("cloned-source-packages-path");
 
     // Execute build.sh
     await exec.exec(`bash ${__dirname}/../build.sh`);

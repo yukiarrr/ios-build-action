@@ -98,6 +98,10 @@ These targets will not use automatic code signing and instead use the identity s
 
 Path to an export options plist. Default `""`.
 
+### `cloned-source-packages-path`
+
+Path for Swift Package Manager dependencies. Default `""`.
+
 ## Contributions Welcome!
 
 If you have any other inputs you'd like to add, feel free to create PR.

@@ -58,6 +58,10 @@ inputs:
     description: "Path to an export options plist"
     required: false
     default: ""
+  cloned-source-packages-path:
+    description: "Path for Swift Package Manager dependencies"
+    required: false
+    default: ""
 runs:
   using: "node12"
   main: "dist/index.js"

@@ -125,6 +125,7 @@ platform :ios do
     project.save
 
     use_workspace = !ENV['WORKSPACE_PATH'].empty?
+    use_cloned_source_packages_path = !ENV['CLONED_SOURCE_PACKAGES_PATH'].empty?
     build_app(
       workspace: use_workspace ? ENV['WORKSPACE_PATH'] : nil,
       project: !use_workspace ? ENV['PROJECT_PATH'] : nil,
@@ -133,6 +134,7 @@ platform :ios do
       output_directory: File.dirname(ENV['OUTPUT_PATH']),
       output_name: File.basename(ENV['OUTPUT_PATH']),
       clean: true,
+      cloned_source_packages_path: use_cloned_source_packages_path ? ENV['CLONED_SOURCE_PACKAGES_PATH'] : nil,
       export_method: ENV['EXPORT_METHOD'],
       export_options: use_export_options ? ENV['EXPORT_OPTIONS'] : nil,
       skip_profile_detection: use_export_options

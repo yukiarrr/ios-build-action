@@ -10,7 +10,7 @@ self-hosted is also supported. If you use self-hosted, install Xcode.
 
 ### p12
 
-You can add a single p12 key+cert file with `p12-base64`, or if you have key and cert in separate files you can add them with `p12-key-base64` and `p12-cer-base64`. One of the two options is required.
+You can add a single p12 key+cert file with `p12-base64 (p12-path)`, or if you have key and cert in separate files you can add them with `p12-key-base64 (p12-key-path)` and `p12-cer-base64 (p12-cer-path)`. One of the two options is required.
 
 #### `p12-base64`
 
@@ -24,7 +24,21 @@ You can add a single p12 key+cert file with `p12-base64`, or if you have key and
 
 **Required if split key/cert**: Base64 encoded certificate for the p12 key.
 
-### `mobileprovision-base64`
+#### `p12-path`
+
+**Required if single file**: p12 path (key + cert).
+
+#### `p12-key-path`
+
+**Required if split key/cert**: p12 key path.
+
+#### `p12-cer-path`
+
+**Required if split key/cert**: Certificate path for the p12 key.
+
+### mobileprovision
+
+#### `mobileprovision-base64`
 
 **Required**: Base64 encoded mobileprovision file. If you want to specify multiple files, you need to input in multiple lines and then use [`export-options`](#export-options) to specify the provisioning profile to use for each executable in your app.
 
@@ -39,6 +53,18 @@ You can add a single p12 key+cert file with `p12-base64`, or if you have key and
 Also note, when creating base64 encoded inputs, make sure they don't contain newlines, e.g.
 
     openssl base64 -in MyAppProvisioning.mobileprovision -A
+
+#### `mobileprovision-path`
+
+**Required**: mobileprovision path. If you want to specify multiple files, you need to input in multiple lines and then use [`export-options`](#export-options) to specify the provisioning profile to use for each executable in your app.
+
+```yaml
+- uses: yukiarrr/ios-build-action@v1.3.3
+  with:
+    mobileprovision-path: |
+      ios-build-1.mobileprovision
+      ios-build-2.mobileprovision
+```
 
 ### `project-path`
 

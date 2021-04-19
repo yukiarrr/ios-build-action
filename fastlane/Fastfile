@@ -17,14 +17,24 @@ platform :ios do
 
     if @is_split_cer
       import_certificate(
-        certificate_path: 'ios-build-key.p12',
+        certificate_path:
+          if !ENV['P12_KEY_PATH'].empty?
+            ENV['P12_KEY_PATH']
+          else
+            'ios-build-key.p12'
+          end,
         certificate_password: ENV['CERTIFICATE_PASSWORD'],
         keychain_name: 'ios-build.keychain',
         keychain_password: keychain_password,
         log_output: true
       )
       import_certificate(
-        certificate_path: 'ios-build-key.cer',
+        certificate_path:
+          if !ENV['P12_CER_PATH'].empty?
+            ENV['P12_CER_PATH']
+          else
+            'ios-build-key.cer'
+          end,
         certificate_password: ENV['CERTIFICATE_PASSWORD'],
         keychain_name: 'ios-build.keychain',
         keychain_password: keychain_password,
@@ -32,7 +42,8 @@ platform :ios do
       )
     else
       import_certificate(
-        certificate_path: 'ios-build.p12',
+        certificate_path:
+          !ENV['P12_PATH'].empty? ? ENV['P12_PATH'] : 'ios-build.p12',
         certificate_password: ENV['CERTIFICATE_PASSWORD'],
         keychain_name: 'ios-build.keychain',
         keychain_password: keychain_password,
@@ -134,7 +145,12 @@ platform :ios do
       output_directory: File.dirname(ENV['OUTPUT_PATH']),
       output_name: File.basename(ENV['OUTPUT_PATH']),
       clean: true,
-      cloned_source_packages_path: use_cloned_source_packages_path ? ENV['CLONED_SOURCE_PACKAGES_PATH'] : nil,
+      cloned_source_packages_path:
+        if use_cloned_source_packages_path
+          ENV['CLONED_SOURCE_PACKAGES_PATH']
+        else
+          nil
+        end,
       export_method: ENV['EXPORT_METHOD'],
       export_options: use_export_options ? ENV['EXPORT_OPTIONS'] : nil,
       skip_profile_detection: use_export_options
@@ -189,22 +205,38 @@ platform :ios do
 
   def decode_file
     @is_split_cer =
-      !ENV['P12_KEY_BASE64'].empty? && !ENV['P12_CER_BASE64'].empty?
-    if @is_split_cer
-      File.write('../ios-build-key.p12', Base64.decode64(ENV['P12_KEY_BASE64']))
-      File.write('../ios-build-key.cer', Base64.decode64(ENV['P12_CER_BASE64']))
-    else
-      File.write('../ios-build.p12', Base64.decode64(ENV['P12_BASE64']))
+      (!ENV['P12_KEY_BASE64'].empty? && !ENV['P12_CER_BASE64'].empty?) ||
+        (!ENV['P12_KEY_PATH'].empty? && !ENV['P12_CER_PATH'].empty?)
+    if ENV['P12_PATH'].empty? &&
+         (ENV['P12_KEY_PATH'].empty? || ENV['P12_CER_PATH'].empty?)
+      if @is_split_cer
+        File.write(
+          '../ios-build-key.p12',
+          Base64.decode64(ENV['P12_KEY_BASE64'])
+        )
+        File.write(
+          '../ios-build-key.cer',
+          Base64.decode64(ENV['P12_CER_BASE64'])
+        )
+      else
+        File.write('../ios-build.p12', Base64.decode64(ENV['P12_BASE64']))
+      end
     end
 
     @profiles = []
-    ENV['MOBILEPROVISION_BASE64'].split(/\R/).each.with_index(
-      1
-    ) do |profile, index|
-      filename = "ios-build-#{index}.mobileprovision"
-      puts "creating ../#{filename}"
-      File.write("../#{filename}", Base64.decode64(profile))
-      @profiles.push(filename)
+    if ENV['MOBILEPROVISION_PATH'].empty?
+      ENV['MOBILEPROVISION_BASE64'].split(/\R/).each.with_index(
+        1
+      ) do |profile, index|
+        filename = "ios-build-#{index}.mobileprovision"
+        puts "creating ../#{filename}"
+        File.write("../#{filename}", Base64.decode64(profile))
+        @profiles.push(filename)
+      end
+    else
+      ENV['MOBILEPROVISION_PATH'].split(/\R/).each.with_index(
+        1
+      ) { |profile, index| @profiles.push(profile) }
     end
   end
 end

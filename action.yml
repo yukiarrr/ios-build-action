@@ -12,7 +12,19 @@ inputs:
     required: false
   mobileprovision-base64:
     description: "Base64 encoded mobileprovision file"
-    required: true
+    required: false
+  p12-key-path:
+    description: "p12 key path"
+    required: false
+  p12-cer-path:
+    description: "Certificate path for the p12 key"
+    required: false
+  p12-path:
+    description: "p12 path (key + cert)"
+    required: false
+  mobileprovision-path:
+    description: "mobileprovision path"
+    required: false
   project-path:
     description: "Project path"
     required: true

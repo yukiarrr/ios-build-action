@@ -70,6 +70,10 @@ inputs:
     description: "Path to an export options plist"
     required: false
     default: ""
+  build-sdk:
+    description: "The SDK that should be used for building the application"
+    required: false
+    default: ""
   cloned-source-packages-path:
     description: "Path for Swift Package Manager dependencies"
     required: false

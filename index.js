@@ -47,6 +47,7 @@ async function run() {
     process.env.CLONED_SOURCE_PACKAGES_PATH = core.getInput(
       "cloned-source-packages-path"
     );
+    process.env.BUILD_SDK = core.getInput("build-sdk");
 
     // Execute build.sh
     await exec.exec(`bash ${__dirname}/../build.sh`);

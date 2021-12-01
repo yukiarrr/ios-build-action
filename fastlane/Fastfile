@@ -136,6 +136,7 @@ platform :ios do
     project.save
 
     use_workspace = !ENV['WORKSPACE_PATH'].empty?
+    use_build_sdk = !ENV['BUILD_SDK'].empty?
     use_cloned_source_packages_path = !ENV['CLONED_SOURCE_PACKAGES_PATH'].empty?
     build_app(
       workspace: use_workspace ? ENV['WORKSPACE_PATH'] : nil,
@@ -153,7 +154,8 @@ platform :ios do
         end,
       export_method: ENV['EXPORT_METHOD'],
       export_options: use_export_options ? ENV['EXPORT_OPTIONS'] : nil,
-      skip_profile_detection: use_export_options
+      skip_profile_detection: use_export_options,
+      sdk: use_build_sdk ? ENV['BUILD_SDK'] : nil
     )
 
     delete_keychain(name: 'ios-build.keychain')

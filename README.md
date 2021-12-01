@@ -132,6 +132,10 @@ Path for Swift Package Manager dependencies. Default `""`.
 
 The SDK that should be used for building the application. Default `""`. For example, `"iOS 11.1"`.
 
+### `build-destination`
+
+Use a custom destination for building the app. Default `""`. For example, `"generic/platform=iOS"`.
+
 ## Contributions Welcome!
 
 If you have any other inputs you'd like to add, feel free to create PR.

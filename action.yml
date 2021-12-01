@@ -74,6 +74,10 @@ inputs:
     description: "The SDK that should be used for building the application"
     required: false
     default: ""
+  build-destination:
+    description: "Use a custom destination for building the app"
+    required: false
+    default: ""
   cloned-source-packages-path:
     description: "Path for Swift Package Manager dependencies"
     required: false

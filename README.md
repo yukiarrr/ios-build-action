@@ -128,6 +128,10 @@ Path to an export options plist. Default `""`.
 
 Path for Swift Package Manager dependencies. Default `""`.
 
+### `entitlements-file-path`
+
+Path to your entitlements file. Default `""`.
+
 ### `build-sdk`
 
 The SDK that should be used for building the application. Default `""`. For example, `"iOS 11.1"`.

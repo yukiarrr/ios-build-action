@@ -1,5 +1,5 @@
 name: "iOS Build Action"
-description: "Build iOS project (.xcodeproj, .xcworkspace), and export ipa"
+description: "Build iOS project (.xcodeproj, .xcworkspace), and export ipa with custom entitlements"
 inputs:
   p12-key-base64:
     description: "Base64 encoded p12 key"
@@ -80,6 +80,10 @@ inputs:
     default: ""
   cloned-source-packages-path:
     description: "Path for Swift Package Manager dependencies"
+    required: false
+    default: ""
+  entitlements-file-path:
+    description: "Path to your entitlements file"
     required: false
     default: ""
 runs:

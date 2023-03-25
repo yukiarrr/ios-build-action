@@ -1,5 +1,7 @@
 # iOS Build Action
 
+**This is a fork of yukiarrr/ios-build-action, since it does not support custom entitlements yet. There is PR open and we recommend that you use the official github action instead of ours once the PR is merged**. Use it only if you need custom entitlements. We do not plan on supporting this action as of now!
+
 This action build iOS project. (.xcodeproj, .xcworkspace)
 
 And can export to ipa, so it can be continuously delivered to DeployGate and TestFlight.

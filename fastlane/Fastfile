@@ -65,7 +65,7 @@ platform :ios do
       path: ENV['PROJECT_PATH'],
       code_sign_identity: ENV['CODE_SIGNING_IDENTITY'],
       targets: update_targets,
-      entitlements_file_path: ENV['ENTITLMENTS_FILE_PATH']
+      entitlements_file_path: !ENV['ENTITLMENTS_FILE_PATH'].empty? ? ENV['ENTITLMENTS_FILE_PATH'] : nil
     )
 
     if @profiles.length == 1

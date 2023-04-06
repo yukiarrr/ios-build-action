@@ -65,7 +65,12 @@ platform :ios do
       path: ENV['PROJECT_PATH'],
       code_sign_identity: ENV['CODE_SIGNING_IDENTITY'],
       targets: update_targets,
-      entitlements_file_path: !ENV['ENTITLMENTS_FILE_PATH'].empty? ? ENV['ENTITLMENTS_FILE_PATH'] : nil
+      entitlements_file_path:
+        if !ENV['ENTITLMENTS_FILE_PATH'].empty?
+          ENV['ENTITLMENTS_FILE_PATH']
+        else
+          nil
+        end
     )
 
     if @profiles.length == 1
@@ -141,10 +146,8 @@ platform :ios do
     use_build_destination = !ENV['BUILD_DESTINATION'].empty?
     use_cloned_source_packages_path = !ENV['CLONED_SOURCE_PACKAGES_PATH'].empty?
 
-    if ENV['INCREMENT_BUILD_NUMBER'] == "true"
-      increment_build_number(
-        xcodeproj: ENV['PROJECT_PATH']
-      )
+    if ENV['INCREMENT_BUILD_NUMBER'] == 'true'
+      increment_build_number(xcodeproj: ENV['PROJECT_PATH'])
     end
 
     build_app(

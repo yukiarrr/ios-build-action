@@ -87,9 +87,29 @@ inputs:
     required: false
     default: ""
   increment-build-number: 
-    description: "Automatically increment the build number by one before building the application"
+    description: "Increment the build number before building the application"
     required: false
-    default: false
+    default: ""
+  increment-version-number:
+    description: 'Increment the version number of your project. Supports patch, minor, major or a specific version number.'
+    required: false
+    default: ""
+  bundle-identifier:
+    description: 'Bundle identifier of the application.'
+    required: false
+    default: ""
+  app-store-connect-api-key-id:
+    description: 'App Store Connect API Key ID'
+    required: false
+    default: ""
+  app-store-connect-api-key-issuer-id:
+    description: 'App Store Connect API Key Issuer ID'
+    required: false
+    default: ""
+  app-store-connect-api-key-base64:
+    description: 'Base64 encoded App Store Connect API Key'
+    required: false
+    default: ""
 runs:
   using: "node12"
   main: "dist/index.js"

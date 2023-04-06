@@ -140,9 +140,37 @@ The SDK that should be used for building the application. Default `""`. For exam
 
 Use a custom destination for building the app. Default `""`. For example, `"generic/platform=iOS"`.
 
+### `increment-version-number`
+
+Increment the version number of your project. Supports `"patch"`, `"minor"`, `"major"` or a specific version number. Default `""`.
+
 ### `increment-build-number`
 
-Automatically increment the build number by one before building the application. Default `false`.
+Increment the build number before building the application. Default `""`.
+
+ - `true` - automatically increment the project build number by one
+ - `testflight` - increment the latest TestFlight build number by one. If this is specified you must also provide `bundle-identifier`, `app-store-connect-api-key-id`, `app-store-connect-api-key-issuer-id` and `app-store-connect-api-key-base64`
+ - a specific build number e.g. `75`
+
+
+### `bundle-identifier`
+
+Application bundle identifier. Default `""`.
+
+### `app-store-connect-api-key-id`
+
+App Store Connect API Key ID. Default `""`.
+
+
+### `app-store-connect-api-key-issuer-id`
+
+App Store Connect API Key Issuer ID. Default `""`.
+
+
+### `app-store-connect-api-key-base64`
+
+Base64 encoded App Store Connect API Key. Default `""`.
+
 
 ## Contributions Welcome!
 

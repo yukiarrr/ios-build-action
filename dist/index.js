@@ -57,6 +57,7 @@ async function run() {
     process.env.BUILD_SDK = core.getInput("build-sdk");
     process.env.BUILD_DESTINATION = core.getInput("build-destination");
     process.env.ENTITLMENTS_FILE_PATH = core.getInput("entitlements-file-path");
+    process.env.INCREMENT_BUILD_NUMBER = core.getInput("increment-build-number");
 
     // Execute build.sh
     await exec.exec(`bash ${__dirname}/../build.sh`);

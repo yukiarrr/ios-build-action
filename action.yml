@@ -86,6 +86,10 @@ inputs:
     description: "Path to your entitlements file"
     required: false
     default: ""
+  increment-build-number: 
+    description: "Automatically increment the build number by one before building the application"
+    required: false
+    default: false
 runs:
   using: "node12"
   main: "dist/index.js"

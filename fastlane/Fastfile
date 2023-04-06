@@ -150,6 +150,20 @@ platform :ios do
       increment_build_number(xcodeproj: ENV['PROJECT_PATH'])
     end
 
+    if !ENV['INCREMENT_VERSION_NUMBER'].empty?
+        if ["patch", "minor", "major"].include?(ENV['INCREMENT_VERSION_NUMBER'])
+            increment_version_number(
+                bump_type: ENV['INCREMENT_VERSION_NUMBER'],
+                xcodeproj: ENV['PROJECT_PATH']
+            )
+        else
+            increment_version_number(
+                version_number: ENV['INCREMENT_VERSION_NUMBER'],
+                xcodeproj: ENV['PROJECT_PATH']
+            )
+        end
+    end
+
     build_app(
       workspace: use_workspace ? ENV['WORKSPACE_PATH'] : nil,
       project: !use_workspace ? ENV['PROJECT_PATH'] : nil,

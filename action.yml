@@ -90,6 +90,10 @@ inputs:
     description: "Automatically increment the build number by one before building the application"
     required: false
     default: false
+  increment-version-number:
+    description: 'Increment the version number of your project. Supports patch, minor, major or a specific version number.'
+    required: false
+    default: ""
 runs:
   using: "node12"
   main: "dist/index.js"

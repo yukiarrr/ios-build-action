@@ -144,6 +144,10 @@ Use a custom destination for building the app. Default `""`. For example, `"gene
 
 Automatically increment the build number by one before building the application. Default `false`.
 
+### `increment-version-number`
+
+Increment the version number of your project. Supports `"patch"`, `"minor"`, `"major"` or a specific version number. Default `""`.
+
 ## Contributions Welcome!
 
 If you have any other inputs you'd like to add, feel free to create PR.

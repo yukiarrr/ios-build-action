@@ -110,6 +110,10 @@ inputs:
     description: 'Base64 encoded App Store Connect API Key'
     required: false
     default: ""
+  build-path:
+    description: 'Build path'
+    required: false
+    default: ""
 runs:
   using: "node12"
   main: "dist/index.js"

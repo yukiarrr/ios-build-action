@@ -140,6 +140,10 @@ The SDK that should be used for building the application. Default `""`. For exam
 
 Use a custom destination for building the app. Default `""`. For example, `"generic/platform=iOS"`.
 
+### `build-path`
+
+Use a custom build path for building the app. Default `"/Users/{user}/Library/Developer/Xcode/Archives/{date}"`. For example, `"./archive"`.
+
 ### `increment-version-number`
 
 Increment the version number of your project. Supports `"patch"`, `"minor"`, `"major"` or a specific version number. Default `""`.

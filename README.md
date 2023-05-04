@@ -175,6 +175,9 @@ App Store Connect API Key Issuer ID. Default `""`.
 
 Base64 encoded App Store Connect API Key. Default `""`.
 
+### `custom-keychain-name`
+
+Custom keychain name. Default `ios-build.keychain`
 
 ## Contributions Welcome!
 
@@ -202,6 +205,21 @@ Welcome your contributions!
 ```yaml
 - uses: yukiarrr/ios-build-action@v1.9.1
   with:
+    project-path: Unity-iPhone.xcodeproj
+    p12-key-base64: ${{ secrets.P12_KEY_BASE64 }}
+    p12-cer-base64: ${{ secrets.P12_CER_BASE64 }}
+    mobileprovision-base64: ${{ secrets.MOBILEPROVISION_BASE64 }}
+    code-signing-identity: ${{ secrets.CODE_SIGNING_IDENTITY }}
+    team-id: ${{ secrets.TEAM_ID }}
+    workspace-path: Unity-iPhone.xcworkspace # optional
+```
+
+### custom keychain name
+
+```yaml
+- uses: yukiarrr/ios-build-action@v1.9.1
+  with:
+    custom-keychain-name: my-ios-build.keychin # or {commit-hash}-ios-build.keychain
     project-path: Unity-iPhone.xcodeproj
     p12-key-base64: ${{ secrets.P12_KEY_BASE64 }}
     p12-cer-base64: ${{ secrets.P12_CER_BASE64 }}

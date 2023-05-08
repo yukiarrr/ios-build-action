@@ -114,6 +114,10 @@ inputs:
     description: 'Build path'
     required: false
     default: ""
+  custom-keychain-name:
+    description: 'Custom Keychain Name'
+    required: false
+    default: "ios-build.keychain"
 runs:
   using: "node12"
   main: "dist/index.js"

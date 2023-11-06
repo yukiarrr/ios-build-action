@@ -216,6 +216,23 @@ platform :ios do
       build_path: use_build_path ? ENV['BUILD_PATH'] : nil
     )
 
+    if ENV['UPLOAD_TO_TESTFLIGHT'] == 'true'
+      api_key = app_store_connect_api_key(
+        key_id: ENV['APP_STORE_CONNECT_API_KEY_ID'],
+        issuer_id: ENV['APP_STORE_CONNECT_API_KEY_ISSUER_ID'],
+        key_content: ENV['APP_STORE_CONNECT_API_KEY_BASE64'],
+        is_key_content_base64: true
+      )
+      upload_to_testflight( # alias for pilot
+        api_key: api_key,
+        skip_waiting_for_build_processing: true,
+        skip_submission: true,
+        distribute_external: false,
+        notify_external_testers: false,
+        ipa: ENV['BUILD_PATH']
+      )
+    end
+
     delete_keychain(name: keychain_name)
   end
 

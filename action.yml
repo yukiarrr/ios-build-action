@@ -86,7 +86,7 @@ inputs:
     description: "Path to your entitlements file"
     required: false
     default: ""
-  increment-build-number: 
+  increment-build-number:
     description: "Increment the build number before building the application"
     required: false
     default: ""
@@ -118,6 +118,10 @@ inputs:
     description: 'Custom Keychain Name'
     required: false
     default: "ios-build.keychain"
+  upload-to-testflight:
+    description: 'Upload to TestFlight'
+    required: false
+    default: "false"
 runs:
   using: "node16"
   main: "dist/index.js"
